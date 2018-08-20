@@ -148,7 +148,9 @@ global.after(function () {
   /* eslint-disable immutable/no-this */
   if (!hasFailed(this)) {
     debug('the test run was a success')
-    pruneSnapshots.call(this)
+    if (!process.env.SNAPSHOT_NO_PRUNE) {
+      pruneSnapshots.call(this)
+    }
   } else {
     debug('not attempting to prune snapshots because the test run has failed')
   }
